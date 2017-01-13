@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <AssemblyName>dotnet-coretool</AssemblyName>
+    <PackageId>dotnetcoretool</PackageId>
+    <PackageType>DotnetCliTool</PackageType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="**\*.cs" />
+    <EmbeddedResource Include="**\*.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.0.1" />
+    <PackageReference Include="Microsoft.NETCore.App" Version="1.0.1" />
+  </ItemGroup>
+  
+  <!-- Files needed in the nupkg by CLI to treat this as a DotNet CLI tool -->
+  <ItemGroup>
+    <None Include="prefercliruntime" Pack="true" PackagePath="prefercliruntime" />
+    <None Include="$(ProjectRuntimeConfigFilePath)" Pack="true" PackagePath="lib\$(TargetFramework)" Condition=" '$(DesignTimeBUild)' != 'true'" />
+  </ItemGroup>
+</Project>
